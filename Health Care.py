@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
 
-# In[20]:
 
 
 import pandas as pd
@@ -13,20 +10,17 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
 
-# In[57]:
 
 
 data = pd.read_csv('C:/Users/india/framingham.csv')
 data.head()
 
 
-# In[23]:
+
 
 
 data.shape
 
-
-# In[24]:
 
 
 data.keys()
@@ -38,32 +32,32 @@ data.keys()
 data.info()
 
 
-# In[26]:
+
 
 
 data.describe()
 
 
-# In[27]:
+
 
 
 data.isna().sum()
 
 
-# In[28]:
+
 
 
 data.dropna(axis = 0, inplace = True)
 print(data.shape)
 
 
-# In[29]:
+
 
 
 data['TenYearCHD'].value_counts()
 
 
-# In[30]:
+
 
 
 plt.figure(figsize=(8, 6))
@@ -75,7 +69,7 @@ plt.xticks(rotation=45)
 plt.show()
 
 
-# In[31]:
+
 
 
 chd_no = data[data['TenYearCHD'] == 0]
@@ -91,7 +85,7 @@ plt.legend()
 plt.show()
 
 
-# In[32]:
+
 
 
 chd_no = data[data['TenYearCHD'] == 0]
@@ -107,7 +101,7 @@ plt.legend()
 plt.show()
 
 
-# In[33]:
+
 
 
 plt.figure(figsize = (14, 10))
@@ -115,30 +109,29 @@ sns.heatmap(data.corr(), cmap='YlGnBu',annot=True, linecolor='Green', linewidths
 plt.show()
 
 
-# In[34]:
+
 
 
 sns.catplot(data=data, kind='count', x='male',hue='currentSmoker')
 plt.show()
 
 
-# In[ ]:
 
 
 sns.catplot(data=data, kind='count', x='TenYearCHD', col='male',row='currentSmoker', palette='Blues')
 plt.show()
 
 
-# Machine Learning Part
 
-# In[36]:
+
+
 
 
 X = data.iloc[:,0:15]
 y = data.iloc[:,15:16]
 
 
-# In[37]:
+
 
 
 X.head()
@@ -219,25 +212,25 @@ print("Prediction score is:",score)
 rf_model = RandomForestClassifier(n_estimators=100, random_state=21)
 
 
-# In[47]:
+
 
 
 rf_model.fit(X_train, y_train)
 
 
-# In[48]:
+
 
 
 rf_predictions = rf_model.predict(X_test)
 print(rf_predictions)
 
 
-# In[49]:
+
 
 
 from sklearn.metrics import confusion_matrix
 
-# Assuming rf_predictions contains the predictions
+
 
 # Generating the confusion matrix
 conf_matrix = confusion_matrix(y_test, rf_predictions)
@@ -267,26 +260,25 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 
-# In[52]:
+
 
 
 svm_model = SVC(kernel='linear')  # You can change the kernel type as needed
 
 
-# In[53]:
+
 
 
 svm_model.fit(X_train, y_train)
 
 
-# In[54]:
+
 
 
 predictions = svm_model.predict(X_test)
 print(predictions)
 
 
-# In[55]:
 
 
 from sklearn.metrics import confusion_matrix
